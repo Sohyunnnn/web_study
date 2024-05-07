@@ -24,9 +24,6 @@
   width: 600px;
 }
 
-/* .infoBox:hover{
-  opacity: 0.2;
-} */
 
 .infoImg{
   margin: 50px 0 20px 0;
@@ -39,7 +36,6 @@
   color: white;
   width: 550px;
   z-index: 1;
-  padding: 20px;
   font-size: 35px;
 }
 
