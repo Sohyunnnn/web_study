@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomePage from './src/pages/Home';
+import { MainPage, PopularPage, NowPlayingPage, TopRatedPage, UpComing} from './src/pages';
 
 
 const Router = () => {
@@ -9,7 +9,31 @@ const Router = () => {
         <Route
           path='/'
           element={
-            <HomePage />
+            <PopularPage />
+          }
+        />
+        <Route
+          path='/MainPage'
+          element={
+            <MainPage />
+          }
+        />
+        <Route
+          path='/NowPlayingPage'
+          element={
+            <NowPlayingPage />
+          }
+        />
+        <Route
+          path='/TopRatedPage'
+          element={
+            <TopRatedPage />
+          }
+        />
+        <Route
+          path='/UpComing'
+          element={
+            <UpComing />
           }
         />
         

@@ -2,7 +2,7 @@ import Info from '../components/info';
 import { fetchMovies } from '../api/movies';
 import { useEffect, useState } from 'react';
 
-const Home = () => {
+const PopularPage = () => {
 
   const [movies, setMovies] = useState([]);
 
@@ -30,4 +30,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default PopularPage;
