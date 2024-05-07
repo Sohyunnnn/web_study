@@ -53,7 +53,7 @@ const Header = () => {
       <Nav>
         <ul>
           <li><Link to="/">회원가입</Link></li>
-          <li><Link to="/popular-page">인기 영화</Link></li>
+          <li><Link to="/popular">인기 영화</Link></li>
           <li><Link to="/now-playing">상영 중</Link></li>
           <li><Link to="/top-rated">최고 평점</Link></li>
           <li><Link to="/upcoming">개봉 예정</Link></li>
