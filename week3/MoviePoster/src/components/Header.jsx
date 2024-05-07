@@ -52,11 +52,11 @@ const Header = () => {
       </Logo>
       <Nav>
         <ul>
-          <li><Link to="/">회원가입</Link></li>
-          <li><Link to="/popular">인기 영화</Link></li>
-          <li><Link to="/now-playing">상영 중</Link></li>
-          <li><Link to="/top-rated">최고 평점</Link></li>
-          <li><Link to="/upcoming">개봉 예정</Link></li>
+          <li><Link to="/">Sign up</Link></li>
+          <li><Link to="/popular">Popular</Link></li>
+          <li><Link to="/now-playing">Now Playing</Link></li>
+          <li><Link to="/top-rated">Top Rated</Link></li>
+          <li><Link to="/upcoming">Upcoming</Link></li>
         </ul>
       </Nav>
     </HeaderContainer>
