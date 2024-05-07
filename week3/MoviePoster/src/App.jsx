@@ -1,20 +1,13 @@
-import './App.css'
-import Info from '../src/components/info'
-import { movies } from '../src/api/movies';
+import './App.css';
+import Router from '../Router';
 
 function App() {
 
+
   return (
-    <>
-       <div className="moviesGrid">
-        {movies.results.map(movie => (
-        <div key={movie.id} className="movieItem">
-          <Info movie={movie} /> 
-        </div>
-    ))}
-  </div>
-    </>
-  )
+  <Router />
+  );
 }
+
 
 export default App

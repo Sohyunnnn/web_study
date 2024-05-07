@@ -19,3 +19,44 @@
   
 }
 
+.infoBox{
+  background-color: rgb(0, 0, 68);
+  width: 600px;
+}
+
+
+.infoImg{
+  margin: 50px 0 20px 0;
+}
+
+.overview {
+  position: absolute; 
+  display: none; 
+  padding: 20px; 
+  color: white;
+  width: 550px;
+  z-index: 1;
+  font-size: 35px;
+}
+
+.overlap{
+  display: none; 
+  background-color: black;
+  height: 1020px;
+  width: 600px;
+  opacity: 0.8;
+  position: absolute; 
+  z-index: 0;
+}
+
+.infoBox:hover .overlap, .infoBox:hover .overview {
+  display: block; /* 호버 상태일 때 나타남 */
+}
+
+.review{
+  padding: 0 0 30px 0;
+}
+
+h2{
+  font-size: 30px;
+}

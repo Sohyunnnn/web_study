@@ -1,66 +1,31 @@
 #root {
-  /* max-width: 1280px; */
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  background-color: #1f1f1f;
+  width: 100%;
 }
 
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
 .moviesGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 5열 그리드 */
-  gap: 70px; /* 그리드 간격 */
+  gap: 20px; /* 그리드 간격 */
+  margin: 0 auto;
   
 }
 
-.infoBox{
-  background-color: rgb(0, 0, 68);
-  width: 600px;
+
+main{
+  display: flex; 
+  margin: 0 auto;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
-/* .infoBox:hover{
-  opacity: 0.2;
-} */
-
-.infoImg{
-  margin: 50px 0 20px 0;
+header {
+  width: 100%;
+  max-width: 100vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.overview {
-  position: absolute; 
-  display: none; 
-  padding: 20px; 
-  color: white;
-  width: 550px;
-  z-index: 1;
-  padding: 20px;
-  font-size: 35px;
-}
-
-.overlap{
-  display: none; 
-  background-color: black;
-  height: 1020px;
-  width: 600px;
-  opacity: 0.8;
-  position: absolute; 
-  z-index: 0;
-}
-
-.infoBox:hover .overlap, .infoBox:hover .overview {
-  display: block; /* 호버 상태일 때 나타남 */
-}
-
-.review{
-  padding: 0 0 30px 0;
-}
-
-h2{
-  font-size: 30px;
-}
