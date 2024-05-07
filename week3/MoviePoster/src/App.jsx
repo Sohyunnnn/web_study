@@ -1,32 +1,11 @@
-import './App.css'
-import Info from '../src/components/info'
-import { fetchMovies } from '../src/api/movies';
-import { useEffect, useState } from 'react';
+import './App.css';
+import Router from '../Router';
 
 function App() {
-  const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    const fetchMovieData = async () => {
-      try {
-        const data = await fetchMovies();
-        setMovies(data.results);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchMovieData();
-  }, []);
 
   return (
-    <div className="moviesGrid">
-      {movies.map(movie => (
-        <div key={movie.id} className="movieItem">
-          <Info movie={movie} /> 
-        </div>
-      ))}
-    </div>
+  <Router />
   );
 }
 
