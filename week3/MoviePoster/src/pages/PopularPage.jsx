@@ -20,7 +20,7 @@ const PopularPage = () => {
   }, []);
 
   return (
-    <main>
+    <main style={{margin: '30px 0'}}>
       <div className="moviesGrid">
         {movies.map(movie => (
           <div key={movie.id} className="movieItem">

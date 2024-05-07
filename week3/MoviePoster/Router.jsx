@@ -10,7 +10,7 @@ const Router = () => {
           path='/'
           element={
             <Layout>
-            <PopularPage />
+            <MainPage />
             </Layout>
           }
         />

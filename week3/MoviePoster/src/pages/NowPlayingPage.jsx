@@ -2,7 +2,7 @@
 
 const NowPlayingPage = () => {
   return (
-    <div>NowPlayingPage</div>
+    <main>NowPlayingPage</main>
   )
 }
 

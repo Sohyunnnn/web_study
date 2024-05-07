@@ -2,7 +2,7 @@
 
 const UpComing = () => {
   return (
-    <div>UpComing</div>
+    <main>UpComing</main>
   )
 }
 

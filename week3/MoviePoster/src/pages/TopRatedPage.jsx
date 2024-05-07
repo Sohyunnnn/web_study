@@ -2,7 +2,7 @@
 
 const TopRatedPage = () => {
   return (
-    <div>TopRatedPage</div>
+    <main>TopRatedPage</main>
   )
 }
 
