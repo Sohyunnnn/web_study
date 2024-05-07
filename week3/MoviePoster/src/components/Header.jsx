@@ -36,6 +36,10 @@ const Nav = styled.nav`
     margin-right: 20px;
   }
 
+  ul li:hover {
+    transform: scale(1.1); /* 호버 시 크기를 1.1배로 확대합니다. */
+  }
+
   ul li a {
     color: white;
     text-decoration: none;
