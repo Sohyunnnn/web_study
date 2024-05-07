@@ -1,31 +1,10 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
@@ -33,10 +12,55 @@
   }
 }
 
-.card {
-  padding: 2em;
+.moviesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 5열 그리드 */
+  gap: 70px; /* 그리드 간격 */
+  
 }
 
-.read-the-docs {
-  color: #888;
+.infoBox{
+  background-color: rgb(0, 0, 68);
+  width: 600px;
+}
+
+/* .infoBox:hover{
+  opacity: 0.2;
+} */
+
+.infoImg{
+  margin: 50px 0 20px 0;
+}
+
+.overview {
+  position: absolute; 
+  display: none; 
+  padding: 20px; 
+  color: white;
+  width: 550px;
+  z-index: 1;
+  padding: 20px;
+  font-size: 35px;
+}
+
+.overlap{
+  display: none; 
+  background-color: black;
+  height: 1020px;
+  width: 600px;
+  opacity: 0.8;
+  position: absolute; 
+  z-index: 0;
+}
+
+.infoBox:hover .overlap, .infoBox:hover .overview {
+  display: block; /* 호버 상태일 때 나타남 */
+}
+
+.review{
+  padding: 0 0 30px 0;
+}
+
+h2{
+  font-size: 30px;
 }

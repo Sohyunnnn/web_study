@@ -1,15 +1,16 @@
 //import React from 'react';
 import PropTypes from 'prop-types';
+import '../App.css'
 
 const Info = ({ movie }) => {
   return (
     <div className='infoBox'>
-      <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
+      <p className="overview">{movie.overview}</p>
+      <div className='overlap'></div>
+      <img className='infoImg' src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
       <h2>{movie.title}</h2>
       <p>{movie.release_date}</p>
-      <p>{movie.overview}</p>
-      <p>평점: {movie.vote_average} / 10</p>
-      <p>평가 수: {movie.vote_count}</p>
+      <p className='review'>평점: {movie.vote_average} / 10</p>
     </div>
   );
 };

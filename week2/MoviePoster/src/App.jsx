@@ -6,9 +6,13 @@ function App() {
 
   return (
     <>
-      {movies.results.map(movie => (
-        <Info key={movie.id} movie={movie} /> 
-      ))}
+       <div className="moviesGrid">
+        {movies.results.map(movie => (
+        <div key={movie.id} className="movieItem">
+          <Info movie={movie} /> 
+        </div>
+    ))}
+  </div>
     </>
   )
 }
