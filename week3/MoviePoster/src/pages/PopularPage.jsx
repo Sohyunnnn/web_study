@@ -20,13 +20,15 @@ const PopularPage = () => {
   }, []);
 
   return (
-    <div className="moviesGrid">
-      {movies.map(movie => (
-        <div key={movie.id} className="movieItem">
-          <Info movie={movie} /> 
-        </div>
-      ))}
-    </div>
+    <main>
+      <div className="moviesGrid">
+        {movies.map(movie => (
+          <div key={movie.id} className="movieItem">
+            <Info movie={movie} /> 
+          </div>
+        ))}
+      </div>
+    </main>
   );
 }
 
