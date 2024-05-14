@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Layout, MainPage, PopularPage, NowPlayingPage, TopRatedPage, UpComing} from './src/pages';
-import DetailPage from './src/pages/DetailPage';
+import { Layout, MainPage, PopularPage, NowPlayingPage, TopRatedPage, UpComing, DetailPage, NotFoundPage} from './src/pages';
 
 
 const Router = () => {
@@ -63,6 +62,9 @@ const Router = () => {
             </Layout>
           }
         />
+        <Route path="*" element={<NotFoundPage />} />
+        {/* React Router v6에서는 모든 경로와 일치하지 않을 때 보여줄 컴포넌트를 설정하려면, <Route>에 path="*"를 명시 */}
+
         
       </Routes>
     </BrowserRouter>
