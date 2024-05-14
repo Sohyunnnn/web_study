@@ -54,17 +54,22 @@ const InfoBox = styled.div`
   }
 `;
 
+const MovieContainer = styled.div`
+  cursor: pointer;
+`;
+
 
 const Info = ({ movie }) => {
 
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/movie/${movie.title}`);
+    navigate(`/movie/${movie.title}`,  { state: { movie } });
   };
 
   return (
-    <InfoBox onClick={handleClick}>
+    <MovieContainer onClick={handleClick}>
+    <InfoBox>
       <Overview>{movie.overview}</Overview>
       <Overlap />
       <InfoImg src={`${IMG_BASE_URL}${movie.poster_path}`} alt={movie.title} />
@@ -72,6 +77,7 @@ const Info = ({ movie }) => {
       <p>{movie.release_date}</p>
       <Review>평점: {movie.vote_average} / 10</Review>
     </InfoBox>
+    </MovieContainer>
   );
 };
 

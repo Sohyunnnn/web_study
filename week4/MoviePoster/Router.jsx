@@ -56,7 +56,7 @@ const Router = () => {
           }
         />
         <Route
-          path='/movie:id'
+          path='/movie/:title'
           element={
             <Layout>
             <DetailPage />
