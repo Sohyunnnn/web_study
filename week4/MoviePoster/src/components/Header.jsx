@@ -46,33 +46,64 @@ const Nav = styled.nav`
     text-decoration: none;
   }
 
-  ul li a.clicked {
-    color: #ff5722; /* 클릭 시 색상 변경 */
-  }
   
 `;
 
 const NavLink = styled(Link)`
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-
   &.clicked {
-    color: yellow;
+    color: #F7D600;
+        ;
   }
 `;
+
+const Auth = styled(Link)`
+&.clicked {
+  color: #ff5722; /* 클릭 시 색상 변경 */
+}
+`;
+
 
 const Header = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
+  const [popularClicked, setPopularClicked] = useState(false);
+  const [nowPlayingClicked, setNowPlayingClicked] = useState(false);
+  const [topRatedClicked, setTopRatedClicked] = useState(false);
+  const [upcomingClicked, setUpcomingClicked] = useState(false);
+  
 
   const handleLoginClick = () => {
-    setIsLoggedIn(!isLoggedIn); // 현재 로그인 상태를 토글합니다.
+    setIsLoggedIn(!isLoggedIn); // 현재 로그인 상태를 토글합
   };
+
+  const handlePopularClick = () => {
+    setPopularClicked(true);
+    setNowPlayingClicked(false);
+    setTopRatedClicked(false);
+    setUpcomingClicked(false);
+  };
+  
+  const handleNowPlayingClick = () => {
+    setPopularClicked(false);
+    setNowPlayingClicked(true);
+    setTopRatedClicked(false);
+    setUpcomingClicked(false);
+  };
+  
+  const handleTopRatedClick = () => {
+    setPopularClicked(false);
+    setNowPlayingClicked(false);
+    setTopRatedClicked(true);
+    setUpcomingClicked(false);
+  };
+  
+  const handleUpcomingClick = () => {
+    setPopularClicked(false);
+    setNowPlayingClicked(false);
+    setTopRatedClicked(false);
+    setUpcomingClicked(true);
+  };
+  
 
 
   return (
@@ -84,13 +115,14 @@ const Header = () => {
       </Logo>
       <Nav>
         <ul>
-          <li><Link to="/" onClick={handleLoginClick} className={isLoggedIn ? 'clicked' : ''}>
+          <li><Auth to="/" onClick={handleLoginClick} className={isLoggedIn ? 'clicked' : ''}>
               {isLoggedIn ? 'Logout' : 'Login'}
-            </Link></li>
-            <li><NavLink to="/popular">Popular</NavLink></li>
-          <li><NavLink to="/now-playing">Now Playing</NavLink></li>
-          <li><NavLink to="/top-rated">Top Rated</NavLink></li>
-          <li><NavLink to="/upcoming">Upcoming</NavLink></li>
+            </Auth></li>
+            <li><NavLink to="/popular" onClick={handlePopularClick} className={popularClicked ? 'clicked' : ''}>Popular</NavLink></li>
+<li><NavLink to="/now-playing" onClick={handleNowPlayingClick} className={nowPlayingClicked ? 'clicked' : ''}>Now Playing</NavLink></li>
+<li><NavLink to="/top-rated" onClick={handleTopRatedClick} className={topRatedClicked ? 'clicked' : ''}>Top Rated</NavLink></li>
+<li><NavLink to="/upcoming" onClick={handleUpcomingClick} className={upcomingClicked ? 'clicked' : ''}>Upcoming</NavLink></li>
+
         </ul>
       </Nav>
     </HeaderContainer>
