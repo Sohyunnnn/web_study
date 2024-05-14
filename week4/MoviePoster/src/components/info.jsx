@@ -1,8 +1,8 @@
 
-//import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IMG_BASE_URL } from '../api/config';
+import { useNavigate } from 'react-router-dom';
 
 const InfoImg = styled.img`
   margin: 20px 0 10px 0;
@@ -54,9 +54,21 @@ const InfoBox = styled.div`
   }
 `;
 
+const MovieContainer = styled.div`
+  cursor: pointer;
+`;
+
 
 const Info = ({ movie }) => {
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/movie/${movie.title}`,  { state: { movie } });
+  };
+
   return (
+    <MovieContainer onClick={handleClick}>
     <InfoBox>
       <Overview>{movie.overview}</Overview>
       <Overlap />
@@ -65,6 +77,7 @@ const Info = ({ movie }) => {
       <p>{movie.release_date}</p>
       <Review>평점: {movie.vote_average} / 10</Review>
     </InfoBox>
+    </MovieContainer>
   );
 };
 
