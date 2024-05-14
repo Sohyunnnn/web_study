@@ -60,7 +60,7 @@ const Info = ({ movie }) => {
     <InfoBox>
       <Overview>{movie.overview}</Overview>
       <Overlap />
-      <InfoImg src={`${IMG_BASE_URL}${movie.poster_path}`} alt={movie.title} />
+      <InfoImg src={`${IMG_BASE_URL}/w200${movie.poster_path}`} alt={movie.title} />
       <Title>{movie.title}</Title>
       <p>{movie.release_date}</p>
       <Review>평점: {movie.vote_average} / 10</Review>
