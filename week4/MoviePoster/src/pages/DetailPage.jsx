@@ -62,8 +62,10 @@ const DetailPage = () => {
           <MovieImg src={`${IMG_BASE_URL}/w300${movie.poster_path}`} alt={movie.title} />
           <TextContainer>
             <Title>{movie.title}</Title>
-            <Paragraph>Rating: <RatingStars rating={roundedRating} /></Paragraph>
-            <Paragraph>Release date: {movie.release_date}</Paragraph>
+            <h2>Rating </h2>
+            <RatingStars rating={roundedRating} />
+            <h2>Release date</h2>
+            <Paragraph>{movie.release_date}</Paragraph>
             <h2>Overview</h2>
             <Paragraph>{movie.overview}</Paragraph>
           </TextContainer>
