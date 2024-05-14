@@ -37,6 +37,9 @@ const Paragraph = styled.p`
   margin-bottom: 10px; /* 아래쪽 여백 */
 `;
 
+const MovieImg = styled.img`
+  max-height: 500px;
+`;
 
 const DetailPage = () => {
   const location = useLocation();
@@ -47,7 +50,7 @@ const DetailPage = () => {
       <Background>
         <BackgroundImage imageUrl={`${IMG_BASE_URL}/w500${movie.poster_path}`} />
         <Content>
-          <img src={`${IMG_BASE_URL}/w300${movie.poster_path}`} alt={movie.title} />
+          <MovieImg src={`${IMG_BASE_URL}/w300${movie.poster_path}`} alt={movie.title} />
           <TextContainer>
             <h1>{movie.title}</h1>
             <Paragraph>Rating: {movie.vote_average}</Paragraph>
