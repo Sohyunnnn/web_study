@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { IMG_BASE_URL } from '../api/config';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import RatingStars from '../components/RatingStars';
 
 const Background = styled.div`
   position: relative;
@@ -38,12 +39,20 @@ const Paragraph = styled.p`
 `;
 
 const MovieImg = styled.img`
-  max-height: 500px;
+  max-height: 400px;
+`;
+
+const Title = styled.p`
+  font-size: 35px;
+  margin: 0 0 10px 0;
+  font-weight: bold;  
 `;
 
 const DetailPage = () => {
   const location = useLocation();
   const movie = location.state.movie;
+
+  const roundedRating = Math.floor(movie.vote_average);
 
   return (
     <main>
@@ -52,8 +61,8 @@ const DetailPage = () => {
         <Content>
           <MovieImg src={`${IMG_BASE_URL}/w300${movie.poster_path}`} alt={movie.title} />
           <TextContainer>
-            <h1>{movie.title}</h1>
-            <Paragraph>Rating: {movie.vote_average}</Paragraph>
+            <Title>{movie.title}</Title>
+            <Paragraph>Rating: <RatingStars rating={roundedRating} /></Paragraph>
             <Paragraph>Release date: {movie.release_date}</Paragraph>
             <h2>Overview</h2>
             <Paragraph>{movie.overview}</Paragraph>
