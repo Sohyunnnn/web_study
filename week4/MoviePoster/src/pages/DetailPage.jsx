@@ -67,7 +67,9 @@ const DetailPage = () => {
             <h2>Release date</h2>
             <Paragraph>{movie.release_date}</Paragraph>
             <h2>Overview</h2>
-            <Paragraph>{movie.overview}</Paragraph>
+            <Paragraph>
+              {movie.overview ? movie.overview : "No overview available."}
+            </Paragraph>
           </TextContainer>
         </Content>
       </Background>
