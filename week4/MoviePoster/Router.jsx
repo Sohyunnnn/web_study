@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout, MainPage, PopularPage, NowPlayingPage, TopRatedPage, UpComing} from './src/pages';
+import DetailPage from './src/pages/DetailPage';
 
 
 const Router = () => {
@@ -51,6 +52,14 @@ const Router = () => {
           element={
             <Layout>
             <UpComing />
+            </Layout>
+          }
+        />
+        <Route
+          path='/movie:id'
+          element={
+            <Layout>
+            <DetailPage />
             </Layout>
           }
         />

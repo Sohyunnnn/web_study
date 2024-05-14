@@ -1,8 +1,8 @@
 
-//import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IMG_BASE_URL } from '../api/config';
+import { useNavigate } from 'react-router-dom';
 
 const InfoImg = styled.img`
   margin: 20px 0 10px 0;
@@ -56,8 +56,15 @@ const InfoBox = styled.div`
 
 
 const Info = ({ movie }) => {
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/movie/${movie.title}`);
+  };
+
   return (
-    <InfoBox>
+    <InfoBox onClick={handleClick}>
       <Overview>{movie.overview}</Overview>
       <Overlap />
       <InfoImg src={`${IMG_BASE_URL}${movie.poster_path}`} alt={movie.title} />
