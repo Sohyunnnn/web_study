@@ -32,6 +32,11 @@ const TextContainer = styled.div`
   text-align: left; /* 텍스트를 시작점으로 정렬 */
 `;
 
+const Paragraph = styled.p`
+  font-size: 20px;
+  margin-bottom: 10px; /* 아래쪽 여백 */
+`;
+
 
 const DetailPage = () => {
   const location = useLocation();
@@ -45,7 +50,10 @@ const DetailPage = () => {
           <img src={`${IMG_BASE_URL}/w300${movie.poster_path}`} alt={movie.title} />
           <TextContainer>
             <h1>{movie.title}</h1>
-            <p>{movie.overview}</p>
+            <Paragraph>Rating: {movie.vote_average}</Paragraph>
+            <Paragraph>Release date: {movie.release_date}</Paragraph>
+            <h2>Overview</h2>
+            <Paragraph>{movie.overview}</Paragraph>
           </TextContainer>
         </Content>
       </Background>
