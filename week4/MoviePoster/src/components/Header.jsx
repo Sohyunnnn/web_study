@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 const HeaderContainer = styled.header`
   background-color: #333;
@@ -9,8 +10,8 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  position='absolute'
-  top='0';
+  position:'absolute'
+  top:'0';
   padding: 20px;
   box-sizing: border-box;
 `;
@@ -37,16 +38,43 @@ const Nav = styled.nav`
   }
 
   ul li:hover {
-    transform: scale(1.1); /* 호버 시 크기를 1.1배로 확대합니다. */
+    transform: scale(1.1); /* 호버 시 크기를 1.1배로 확대 */
   }
 
   ul li a {
     color: white;
     text-decoration: none;
   }
+
+  ul li a.clicked {
+    color: #ff5722; /* 클릭 시 색상 변경 */
+  }
+  
+`;
+
+const NavLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &.clicked {
+    color: yellow;
+  }
 `;
 
 const Header = () => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
+
+  const handleLoginClick = () => {
+    setIsLoggedIn(!isLoggedIn); // 현재 로그인 상태를 토글합니다.
+  };
+
+
   return (
     <>
     <header>
@@ -56,11 +84,13 @@ const Header = () => {
       </Logo>
       <Nav>
         <ul>
-          <li><Link to="/">Sign up</Link></li>
-          <li><Link to="/popular">Popular</Link></li>
-          <li><Link to="/now-playing">Now Playing</Link></li>
-          <li><Link to="/top-rated">Top Rated</Link></li>
-          <li><Link to="/upcoming">Upcoming</Link></li>
+          <li><Link to="/" onClick={handleLoginClick} className={isLoggedIn ? 'clicked' : ''}>
+              {isLoggedIn ? 'Logout' : 'Login'}
+            </Link></li>
+            <li><NavLink to="/popular">Popular</NavLink></li>
+          <li><NavLink to="/now-playing">Now Playing</NavLink></li>
+          <li><NavLink to="/top-rated">Top Rated</NavLink></li>
+          <li><NavLink to="/upcoming">Upcoming</NavLink></li>
         </ul>
       </Nav>
     </HeaderContainer>
