@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { searchApi } from '../api/searchApi';
-import { IMG_BASE_URL } from '../api/config';
-import useDebounce from '../hook/useDebounce'; // useDebounce 훅 추가
+import useDebounce from '../hook/useDebounce';
+import Info from '../components/info';
 
 const MainContainer = styled.div`
   display: flex;
@@ -42,14 +42,6 @@ const SearchResultContainer = styled.div`
   background-color: gray;
   width: 1000px;
   margin-bottom: 100px;
-`;
-
-const MovieItem = styled.div`
-  background-color: rgb(0, 0, 68);
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: white;
-  padding-top: 20px;
 `;
 
 const MainPage = () => {
@@ -115,12 +107,10 @@ const MainPage = () => {
           </SearchButton>
         </InputContainer>
         <SearchResultContainer visible={searchResults.length > 0}>
-          {searchResults.map((movie) => (
-            <MovieItem key={movie.id}>
-              <img src={`${IMG_BASE_URL}/w200${movie.poster_path}`} alt={movie.title} />
-              <p>{movie.title}</p>
-              <p>{movie.vote_average}</p>
-            </MovieItem>
+        {searchResults.map((movie) => (
+            <div key={movie.id} className="movieItem">
+              <Info movie={movie} />
+            </div>
           ))}
         </SearchResultContainer>
       </MainContainer>
