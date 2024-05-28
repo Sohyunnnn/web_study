@@ -1,5 +1,3 @@
-
-
 import { useState } from 'react';
 import styled from 'styled-components';
 import { searchApi } from '../api/searchApi';
@@ -34,17 +32,16 @@ const SearchButton = styled.button`
 `;
 
 const SearchResultContainer = styled.div`
-  display: grid;
+  display: ${(props) => (props.visible ? 'grid' : 'none')}; /* 검색 결과가 있을 때만 표시 */
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 20px;
-  overflow-y: auto; /* 수직 스크롤바를 표시하기 위해 추가 */
-  max-height: 800px; /* 최대 높이를 지정하여 스크롤바가 나타나도록 설정 */
+  overflow-y: auto;
+  max-height: 800px;
   background-color: gray;
   width: 1000px;
   margin-bottom:100px;
 `;
-
 
 const MovieItem = styled.div`
   background-color: rgb(0, 0, 68);;
@@ -94,8 +91,7 @@ const MainPage = () => {
             Search
           </SearchButton>
         </InputContainer>
-        <SearchResultContainer>
-          {isSearching && searchResults.length === 0 && <div>No results found</div>}
+        <SearchResultContainer visible={searchResults.length > 0}>
           {searchResults.map((movie) => (
             <MovieItem key={movie.id}>
               <img src={`${IMG_BASE_URL}/w200${movie.poster_path}`} alt={movie.title} />
@@ -103,7 +99,7 @@ const MainPage = () => {
               <p>{movie.vote_average}</p>
             </MovieItem>
           ))}
-          </SearchResultContainer>
+        </SearchResultContainer>
       </MainContainer>
     </main>
   );
