@@ -1,8 +1,10 @@
-import { useLocation } from 'react-router-dom';
-import { IMG_BASE_URL } from '../api/config';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { IMG_BASE_URL } from '../api/config';
 import PropTypes from 'prop-types';
 import RatingStars from '../components/RatingStars';
+import { getMovieDetails } from '../api/getMovieDetail';
 
 const Background = styled.div`
   position: relative;
@@ -30,12 +32,12 @@ const Content = styled.div`
 `;
 
 const TextContainer = styled.div`
-  text-align: left; /* 텍스트를 시작점으로 정렬 */
+  text-align: left;
 `;
 
 const Paragraph = styled.p`
   font-size: 20px;
-  margin-bottom: 10px; /* 아래쪽 여백 */
+  margin-bottom: 10px;
 `;
 
 const MovieImg = styled.img`
@@ -45,12 +47,43 @@ const MovieImg = styled.img`
 const Title = styled.p`
   font-size: 35px;
   margin: 0 0 10px 0;
-  font-weight: bold;  
+  font-weight: bold;
 `;
 
 const DetailPage = () => {
-  const location = useLocation();
-  const movie = location.state.movie;
+  const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      try {
+        const data = await getMovieDetails(id);
+        console.log(id)
+        console.log('data',data)
+        setMovie(data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMovieDetails();
+  }, [id]);
+
+  if (isLoading) {
+    return <div>데이터를 받아오는 중입니다...</div>;
+  }
+
+  if (error) {
+    return <div>영화 정보를 가져오는 중 오류가 발생했습니다: {error.message}</div>;
+  }
+
+  if (!movie) {
+    return <div>영화 정보를 찾을 수 없습니다.</div>;
+  }
 
   const roundedRating = Math.floor(movie.vote_average);
 
@@ -62,7 +95,7 @@ const DetailPage = () => {
           <MovieImg src={`${IMG_BASE_URL}/w300${movie.poster_path}`} alt={movie.title} />
           <TextContainer>
             <Title>{movie.title}</Title>
-            <h2>Rating </h2>
+            <h2>Rating</h2>
             <RatingStars rating={roundedRating} />
             <h2>Release date</h2>
             <Paragraph>{movie.release_date}</Paragraph>
@@ -76,7 +109,6 @@ const DetailPage = () => {
     </main>
   );
 };
-
 
 Background.propTypes = {
   imageUrl: PropTypes.string.isRequired,

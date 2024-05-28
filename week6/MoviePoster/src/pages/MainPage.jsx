@@ -8,7 +8,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
 `;
 
@@ -34,14 +34,20 @@ const SearchButton = styled.button`
 
 const SearchResultContainer = styled.div`
   display: ${(props) => (props.visible ? 'grid' : 'none')};
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 20px;
   overflow-y: auto;
   max-height: 800px;
   background-color: gray;
-  width: 1100px;
+  width: 1000px;
   margin-bottom: 100px;
+`;
+
+const LoadingMessage = styled.div`
+  font-size: 18px;
+  color: #007BFF;
+  margin: 20px 0;
 `;
 
 const MainPage = () => {
@@ -49,12 +55,14 @@ const MainPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
-  // debounce 적용
   const debouncedKeyword = useDebounce(keyword, 300);
 
-  // keyword가 변할 때마다 검색 요청
+  const handleInputChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
   useEffect(() => {
-    const fetchSearchResults = async () => {
+    const handleSearch = async () => {
       if (debouncedKeyword.trim() !== '') {
         setIsSearching(true);
         try {
@@ -68,26 +76,8 @@ const MainPage = () => {
       }
     };
 
-    fetchSearchResults();
+    handleSearch();
   }, [debouncedKeyword]);
-
-  const handleInputChange = (e) => {
-    setKeyword(e.target.value);
-  };
-
-  const handleSearch = async () => {
-    if (keyword.trim() !== '') {
-      setIsSearching(true);
-      try {
-        const searchData = await searchApi(keyword);
-        setSearchResults(searchData.results);
-      } catch (error) {
-        console.error('Error fetching search results:', error);
-      } finally {
-        setIsSearching(false);
-      }
-    }
-  };
 
   return (
     <main>
@@ -99,20 +89,21 @@ const MainPage = () => {
             value={keyword}
             onChange={handleInputChange}
           />
-          <SearchButton
-            onClick={handleSearch}
-            disabled={keyword.trim() === '' || isSearching}
-          >
+          <SearchButton onClick={() => {}} disabled={keyword.trim() === '' || isSearching}>
             Search
           </SearchButton>
         </InputContainer>
-        <SearchResultContainer visible={searchResults.length > 0}>
-        {searchResults.map((movie) => (
-            <div key={movie.id} className="movieItem">
-              <Info movie={movie} />
-            </div>
-          ))}
-        </SearchResultContainer>
+        {isSearching ? (
+          <LoadingMessage>데이터를 받아오는 중입니다...</LoadingMessage>
+        ) : (
+          <SearchResultContainer visible={searchResults.length > 0}>
+            {searchResults.map((movie) => (
+              <div key={movie.id} className="movieItem">
+                <Info movie={movie} />
+              </div>
+            ))}
+          </SearchResultContainer>
+        )}
       </MainContainer>
     </main>
   );
