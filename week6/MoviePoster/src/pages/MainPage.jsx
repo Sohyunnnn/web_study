@@ -94,7 +94,7 @@ const MainPage = () => {
           </SearchButton>
         </InputContainer>
         {isSearching ? (
-          <LoadingMessage>데이터를 받아오는 중입니다...</LoadingMessage>
+         <LoadingMessage>Loading data...</LoadingMessage>
         ) : (
           <SearchResultContainer visible={searchResults.length > 0}>
             {searchResults.map((movie) => (

@@ -109,16 +109,17 @@ const DetailPage = () => {
   }, [id]);
 
   if (isLoading) {
-    return <EtcContainer>데이터를 받아오는 중입니다...</EtcContainer>;
+    return <EtcContainer>Loading data...</EtcContainer>;
   }
-
+  
   if (error) {
-    return <EtcContainer>영화 정보를 가져오는 중 오류가 발생했습니다: {error.message}</EtcContainer>;
+    return <EtcContainer>An error occurred while fetching movie information: {error.message}</EtcContainer>;
   }
-
+  
   if (!movie) {
-    return <EtcContainer>영화 정보를 찾을 수 없습니다.</EtcContainer>;
+    return <EtcContainer>Movie information not found.</EtcContainer>;
   }
+  
 
   const roundedRating = Math.floor(movie.vote_average);
 
