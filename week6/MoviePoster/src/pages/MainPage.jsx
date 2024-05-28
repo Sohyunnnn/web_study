@@ -34,13 +34,13 @@ const SearchButton = styled.button`
 
 const SearchResultContainer = styled.div`
   display: ${(props) => (props.visible ? 'grid' : 'none')};
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
   overflow-y: auto;
   max-height: 800px;
   background-color: gray;
-  width: 1000px;
+  width: 1100px;
   margin-bottom: 100px;
 `;
 

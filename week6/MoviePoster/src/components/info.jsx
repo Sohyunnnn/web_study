@@ -64,7 +64,7 @@ const Info = ({ movie }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/movie/${movie.title}`,  { state: { movie } });
+    navigate(`/movie/${movie.id}`,  { state: { movie } });
   };
 
   return (
@@ -89,6 +89,7 @@ Info.propTypes = {
     overview: PropTypes.string.isRequired,
     vote_average: PropTypes.number.isRequired,
     vote_count: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
 };
 
