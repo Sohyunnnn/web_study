@@ -189,7 +189,7 @@ const SignupPage = () => {
             onChange={handleInputChange(setConfirmPassword, 'confirmPassword')}
           />
           {errors.confirmPassword && <ErrorMessage>{errors.confirmPassword}</ErrorMessage>}
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' disabled={!isFormValid}>Submit</Button>
         </form>
         <div>
           <p>Do you already have an ID?</p>
