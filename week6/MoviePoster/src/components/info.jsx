@@ -64,7 +64,7 @@ const Info = ({ movie }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/movie/${movie.id}`,  { state: { movie } });
+    navigate(`/movie/${movie.id}`);
   };
 
   return (

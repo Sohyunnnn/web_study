@@ -5,6 +5,7 @@ import { IMG_BASE_URL } from '../api/config';
 import PropTypes from 'prop-types';
 import RatingStars from '../components/RatingStars';
 import { getMovieDetails } from '../api/getMovieDetail';
+import { getCrew } from '../api/getCrew';
 
 const Background = styled.div`
   position: relative;
@@ -50,19 +51,46 @@ const Title = styled.p`
   font-weight: bold;
 `;
 
+const ProfileImg = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* 50%로 설정하여 이미지를 원형으로 만듭니다. */
+  object-fit: cover; /* 이미지가 요소에 맞춰 잘리지 않고 자동으로 조절됩니다. */
+  clip-path: circle(50% at center); /* 원형으로 자르도록 설정합니다. */
+`;
+
+const ProfileGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));/* 자동으로 열 크기를 조정합니다. 최소 크기는 150px, 최대 크기는 1fr입니다. */
+  grid-gap: 10px; /* 그리드 아이템 사이의 간격을 설정합니다. */
+  align-items: center; /* 그리드 아이템을 세로로 가운데 정렬합니다. */
+`;
+
+const ProfileItem = styled.div`
+  text-align: center;
+  height:130px;
+`;
+
+
 const DetailPage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [cast, setCast] = useState([]); 
+  const [crew, setCrew] = useState([]); 
+
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
         const data = await getMovieDetails(id);
-        console.log(id)
-        console.log('data',data)
         setMovie(data);
+
+        const crewData = await getCrew(id);
+        setCast(crewData.cast);
+        setCrew(crewData.crew);
+
       } catch (error) {
         setError(error);
       } finally {
@@ -105,6 +133,34 @@ const DetailPage = () => {
             </Paragraph>
           </TextContainer>
         </Content>
+        <div>
+        <h2>Cast</h2>
+            <ProfileGrid>
+              {cast.map(actor => (
+                <ProfileItem key={actor.id}>
+                  {actor.profile_path ? (
+                    <ProfileImg src={`${IMG_BASE_URL}/w200${actor.profile_path}`} alt={actor.name} />
+                  ) : (
+                    <ProfileImg src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz7ztleRwzXhFdiwBYqZ8cib9RvEsukVVUS3niN1YQ&s" alt="No Image" />
+                  )}
+                  <div>{actor.name}</div>
+                </ProfileItem>
+              ))}
+            </ProfileGrid>
+            <h2>Crew</h2>
+            <ProfileGrid>
+              {crew.map(member => (
+                <ProfileItem key={member.id}>
+                  {member.profile_path ? (
+                    <ProfileImg src={`${IMG_BASE_URL}/w200${member.profile_path}`} alt={member.name} />
+                  ) : (
+                    <ProfileImg src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz7ztleRwzXhFdiwBYqZ8cib9RvEsukVVUS3niN1YQ&s" alt="No Image" />
+                  )}
+                  <div>{member.name}</div>
+                </ProfileItem>
+              ))}
+            </ProfileGrid>
+        </div>
       </Background>
     </main>
   );
