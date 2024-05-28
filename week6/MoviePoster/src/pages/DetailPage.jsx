@@ -71,6 +71,13 @@ const ProfileItem = styled.div`
   height:130px;
 `;
 
+const EtcContainer =styled.div`
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+`;
+
 
 const DetailPage = () => {
   const { id } = useParams();
@@ -102,15 +109,15 @@ const DetailPage = () => {
   }, [id]);
 
   if (isLoading) {
-    return <div>데이터를 받아오는 중입니다...</div>;
+    return <EtcContainer>데이터를 받아오는 중입니다...</EtcContainer>;
   }
 
   if (error) {
-    return <div>영화 정보를 가져오는 중 오류가 발생했습니다: {error.message}</div>;
+    return <EtcContainer>영화 정보를 가져오는 중 오류가 발생했습니다: {error.message}</EtcContainer>;
   }
 
   if (!movie) {
-    return <div>영화 정보를 찾을 수 없습니다.</div>;
+    return <EtcContainer>영화 정보를 찾을 수 없습니다.</EtcContainer>;
   }
 
   const roundedRating = Math.floor(movie.vote_average);
