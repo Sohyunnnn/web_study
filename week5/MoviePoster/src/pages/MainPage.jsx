@@ -1,11 +1,16 @@
+
+
 import { useState } from 'react';
 import styled from 'styled-components';
 import { searchApi } from '../api/searchApi';
+import { IMG_BASE_URL } from '../api/config';
 
 const MainContainer = styled.div`
   display:flex;
   flex-direction: column;
   width: 100%;
+  align-items: center; 
+  justify-content: center;
 `;
 
 const InputContainer = styled.div`
@@ -29,15 +34,24 @@ const SearchButton = styled.button`
 `;
 
 const SearchResultContainer = styled.div`
-  max-height: 300px;
-  overflow-y: auto;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  overflow-y: auto; /* 수직 스크롤바를 표시하기 위해 추가 */
+  max-height: 800px; /* 최대 높이를 지정하여 스크롤바가 나타나도록 설정 */
+  background-color: gray;
+  width: 1000px;
+  margin-bottom:100px;
 `;
 
+
 const MovieItem = styled.div`
-  margin-bottom: 10px;
+  background-color: rgb(0, 0, 68);;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: white;
+  padding-top: 20px;
 `;
 
 const MainPage = () => {
@@ -58,7 +72,7 @@ const MainPage = () => {
       } catch (error) {
         console.error('Error fetching search results:', error);
       } finally {
-        setIsSearching(false); // 검색 완료 후 상태 업데이트
+        setIsSearching(false);
       }
     }
   };
@@ -82,14 +96,14 @@ const MainPage = () => {
         </InputContainer>
         <SearchResultContainer>
           {isSearching && searchResults.length === 0 && <div>No results found</div>}
-          {isSearching &&
-            searchResults.map((movie) => (
-              <MovieItem key={movie.id}>
-                <p>{movie.title}</p>
-                <p>{movie.overview}</p>
-              </MovieItem>
-            ))}
-        </SearchResultContainer>
+          {searchResults.map((movie) => (
+            <MovieItem key={movie.id}>
+              <img src={`${IMG_BASE_URL}/w200${movie.poster_path}`} alt={movie.title} />
+              <p>{movie.title}</p>
+              <p>{movie.vote_average}</p>
+            </MovieItem>
+          ))}
+          </SearchResultContainer>
       </MainContainer>
     </main>
   );
