@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { searchApi } from '../api/searchApi';
 import { IMG_BASE_URL } from '../api/config';
+import useDebounce from '../hook/useDebounce'; // useDebounce 훅 추가
 
 const MainContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center; 
@@ -32,7 +33,7 @@ const SearchButton = styled.button`
 `;
 
 const SearchResultContainer = styled.div`
-  display: ${(props) => (props.visible ? 'grid' : 'none')}; /* 검색 결과가 있을 때만 표시 */
+  display: ${(props) => (props.visible ? 'grid' : 'none')};
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 20px;
@@ -40,11 +41,11 @@ const SearchResultContainer = styled.div`
   max-height: 800px;
   background-color: gray;
   width: 1000px;
-  margin-bottom:100px;
+  margin-bottom: 100px;
 `;
 
 const MovieItem = styled.div`
-  background-color: rgb(0, 0, 68);;
+  background-color: rgb(0, 0, 68);
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: white;
@@ -55,6 +56,28 @@ const MainPage = () => {
   const [keyword, setKeyword] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+
+  // debounce 적용
+  const debouncedKeyword = useDebounce(keyword, 300);
+
+  // keyword가 변할 때마다 검색 요청
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (debouncedKeyword.trim() !== '') {
+        setIsSearching(true);
+        try {
+          const searchData = await searchApi(debouncedKeyword);
+          setSearchResults(searchData.results);
+        } catch (error) {
+          console.error('Error fetching search results:', error);
+        } finally {
+          setIsSearching(false);
+        }
+      }
+    };
+
+    fetchSearchResults();
+  }, [debouncedKeyword]);
 
   const handleInputChange = (e) => {
     setKeyword(e.target.value);
