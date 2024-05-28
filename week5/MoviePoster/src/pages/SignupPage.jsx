@@ -49,6 +49,50 @@ const SignupPage = () => {
     return /^[가-힣A-Za-z\s]+$/.test(name);
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateAge = (age) => {
+    if (!age) {
+      return 'Age is required';
+    }
+    const ageNumber = Number(age);
+    if (isNaN(ageNumber)) {
+      return 'Age must be a number';
+    }
+    if (ageNumber < 0) {
+      return 'Age cannot be negative';
+    }
+    if (!Number.isInteger(ageNumber)) {
+      return 'Age cannot be a decimal';
+    }
+    if (ageNumber < 19) {
+      return 'You must be at least 19 years old';
+    }
+    return '';
+  };
+
+  const validatePassword = (password) => {
+    if (!password) return 'Password is required';
+    if (typeof password !== 'string') return 'Password must be a string';
+    if (password.length < 4) return 'Password must be at least 4 characters long';
+    if (password.length > 12) return 'Password must be no more than 12 characters long';
+    const hasLetter = /[a-zA-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    if (!hasLetter || !hasNumber || !hasSpecialChar) return 'Password must include letters, numbers, and special characters';
+    return '';
+  };
+
+  const validateConfirmPassword = (confirmPassword) => {
+    if (!confirmPassword) return 'Confirm password is required';
+    if (typeof confirmPassword !== 'string') return 'Confirm password must be a string';
+    if (password !== confirmPassword) return 'Passwords do not match';
+    return '';
+  };
+
   useEffect(() => {
     const newErrors = {};
     if (!name) {
@@ -57,11 +101,27 @@ const SignupPage = () => {
       newErrors.name = 'Name must be a string';
     }
 
-    if (!email) newErrors.email = 'Email is required';
-    if (!age) newErrors.age = 'Age is required';
-    if (!password) newErrors.password = 'Password is required';
-    if (password !== confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-    if (!confirmPassword) newErrors.confirmPassword = 'Confirm password is required';
+    if (!email) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(email)) {
+      newErrors.email = 'Invalid email format';
+    }
+
+    const ageError = validateAge(age);
+    if (ageError) {
+      newErrors.age = ageError;
+    }
+
+
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      newErrors.password = passwordError;
+    }
+
+    const confirmPasswordError = validateConfirmPassword(confirmPassword);
+    if (confirmPasswordError) {
+      newErrors.confirmPassword = confirmPasswordError;
+    }
 
     setErrors(newErrors);
 
@@ -69,10 +129,21 @@ const SignupPage = () => {
     setIsFormValid(isValid);
   }, [name, email, age, password, confirmPassword]);
 
+  const FormData = {
+    name: name,
+    email: email,
+    age: age,
+    password: password, 
+    confirmPassword: confirmPassword
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isFormValid) {
       console.log('Form submitted');
+      console.log(FormData);
+
+      alert('회원가입이 성공적으로 완료되었습니다!');
     }
   };
 
