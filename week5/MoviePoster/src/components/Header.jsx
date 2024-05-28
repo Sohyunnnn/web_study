@@ -54,25 +54,17 @@ const NavLink = styled(Link)`
   }
 `;
 
-const Auth = styled(Link)`
-&.clicked {
-  color: #ff5722; /* 클릭 시 색상 변경 */
-}
-`;
 
 
 const Header = () => {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
   const [popularClicked, setPopularClicked] = useState(false);
   const [nowPlayingClicked, setNowPlayingClicked] = useState(false);
   const [topRatedClicked, setTopRatedClicked] = useState(false);
   const [upcomingClicked, setUpcomingClicked] = useState(false);
   
 
-  const handleLoginClick = () => {
-    setIsLoggedIn(!isLoggedIn); // 현재 로그인 상태를 토글합
-  };
+
 
   const handlePopularClick = () => {
     setPopularClicked(true);
@@ -113,9 +105,9 @@ const Header = () => {
       </Logo>
       <Nav>
         <ul>
-          <li><Auth to="/" onClick={handleLoginClick} className={isLoggedIn ? 'clicked' : ''}>
-              {isLoggedIn ? 'Logout' : 'Login'}
-            </Auth></li>
+            <li><Link to="/signup">
+             Signup
+            </Link></li>
             <li><NavLink to="/popular" onClick={handlePopularClick} className={popularClicked ? 'clicked' : ''}>Popular</NavLink></li>
 <li><NavLink to="/now-playing" onClick={handleNowPlayingClick} className={nowPlayingClicked ? 'clicked' : ''}>Now Playing</NavLink></li>
 <li><NavLink to="/top-rated" onClick={handleTopRatedClick} className={topRatedClicked ? 'clicked' : ''}>Top Rated</NavLink></li>
