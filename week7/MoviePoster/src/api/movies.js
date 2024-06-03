@@ -1,9 +1,9 @@
 import { API_URL } from './config';
 import { API_KEY } from './key';
 
-export const fetchMovies = async () => {
+export const fetchMovies = async (page) => {
   try {
-    const response = await fetch(`${API_URL}movie/popular?api_key=${API_KEY}`);
+    const response = await fetch(`${API_URL}movie/popular?api_key=${API_KEY}&page=${page}`);
     const data = await response.json();
     console.log(data);
     return data; // 데이터 반환
