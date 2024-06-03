@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { searchApi } from '../api/searchApi';
 import useDebounce from '../hook/useDebounce';
 import Info from '../components/info';
+import Banner from '../components/home/Banner'
 
 const MainContainer = styled.div`
   display: flex;
@@ -82,6 +83,7 @@ const MainPage = () => {
   return (
     <main>
       <MainContainer>
+        <Banner />
         <h2>Find your movies!</h2>
         <InputContainer>
           <InputBox

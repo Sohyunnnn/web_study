@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { getInfo } from '../../api/getInfo';
+import { useEffect, useState } from 'react';
 
 const BannerContainer = styled.div`
   background-color: black;
@@ -17,12 +19,31 @@ const BannerContainer = styled.div`
 `;
 
 const Banner = () => {
+  const [userName, setUserName] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    getInfo(token)
+      .then(data => {
+        setUserName(data.name); 
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      });
+  }, []);
+  
+
+
+
   return (
-    <div>
       <BannerContainer>
-      Welcome to Movie App
+         {isLoading ? 'Loading...' : `Welcome to ${userName}`}
       </BannerContainer>
-    </div>
   )
 }
 
