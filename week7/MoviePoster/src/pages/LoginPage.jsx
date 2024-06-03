@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { postLogin } from '../api/postLogin';
+import { useNavigate } from 'react-router-dom';
 
 const Input = styled.input`
   width: 300px;
@@ -45,6 +47,8 @@ const LoginPage = () => {
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
 
+  const navigate = useNavigate();
+
 
   const handleInputChange = (setter, field) => (e) => {
     setter(e.target.value);
@@ -60,7 +64,22 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     validateForm();
-    // Add your login logic here
+    
+    if (isFormValid) {
+      (async () => {
+      try {
+        const userData = { username: id, password }; // Prepare user data
+        const response = await postLogin(userData); // Call postLogin function
+        // Handle the response according to your requirements
+        console.log(response); // Log the response
+        alert('로그인 되었습니다.');
+        navigate('/')
+      } catch (error) {
+        console.error('Error logging in:', error);
+        // Handle error
+      }
+    })();
+  }
   };
 
   const validatePassword = (password) => {
