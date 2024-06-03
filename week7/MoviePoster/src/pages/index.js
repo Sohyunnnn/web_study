@@ -6,6 +6,7 @@ export { default as UpComing } from './UpComing';
 export { default as DetailPage } from './DetailPage';
 export { default as NotFoundPage } from './NotFoundPage';
 export { default as SignupPage } from './SignupPage';
+export { default as LoginPage } from './LoginPage';
 export { default as Layout } from './Layout';
 
 

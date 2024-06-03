@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Layout, MainPage, PopularPage, NowPlayingPage, TopRatedPage, UpComing, DetailPage, NotFoundPage, SignupPage} from './src/pages';
+import { Layout, MainPage, PopularPage, NowPlayingPage, TopRatedPage, UpComing, DetailPage, NotFoundPage, SignupPage ,LoginPage} from './src/pages';
 
 
 const Router = () => {
@@ -67,6 +67,14 @@ const Router = () => {
           element={
             <Layout>
             <SignupPage />
+            </Layout>
+          }
+        />
+        <Route
+          path='/login'
+          element={
+            <Layout>
+            <LoginPage />
             </Layout>
           }
         />
