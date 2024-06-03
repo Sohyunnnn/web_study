@@ -1,9 +1,11 @@
 import Info from '../components/info';
 import { fetchMovies } from '../api/movies';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useQuery } from '@tanstack/react-query';
+
 
 
 const PaginationContainer = styled.div`
@@ -46,27 +48,36 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
 };
 
 const PopularPage = () => {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [movies, setMovies] = useState([]);
+  // const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  // const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    const fetchMovieData = async (page) => {
-      try {
-        setLoading(true);
-        const data = await fetchMovies(page);
-        setMovies(data.results);
-        setTotalPages(data.total_pages);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
-    };
 
-    fetchMovieData(currentPage);
-  }, [currentPage]);
+  const { data, error, isLoading, isFetching } = useQuery({
+    queryKey: ['movies', currentPage],
+    queryFn: () => fetchMovies(currentPage),
+    keepPreviousData: true,
+  });
+
+  const totalPages = data?.total_pages || 1;
+
+  // useEffect(() => {
+  //   const fetchMovieData = async (page) => {
+  //     try {
+  //       setLoading(true);
+  //       const data = await fetchMovies(page);
+  //       setMovies(data.results);
+  //       setTotalPages(data.total_pages);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error(error);
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchMovieData(currentPage);
+  // }, [currentPage]);
 
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
@@ -74,22 +85,29 @@ const PopularPage = () => {
     }
   };
 
+    if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return <div>Error loading movies</div>;
+  }
+
+  
+
   return (
     <main style={{ margin: '30px auto' }}>
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
         <div>
           <div className="moviesGrid">
-            {movies.map((movie) => (
+            {data.results.map((movie) => (
               <div key={movie.id} className="movieItem">
                 <Info movie={movie} />
               </div>
             ))}
           </div>
           <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
+          {isFetching && <LoadingSpinner />}
         </div>
-      )}
     </main>
   );
 };
