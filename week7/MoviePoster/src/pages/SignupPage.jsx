@@ -170,21 +170,34 @@ const SignupPage = () => {
     if (isFormValid) {
       (async () => {
       try {
-        const userData = { name, id, email, age, password, confirmPassword };
+        const userData = {
+          name,
+          email,
+          age,
+          username: id, 
+          password,
+          passwordCheck: confirmPassword 
+        };
+        console.log(userData)
         const response = await postSignup(userData);
         // 여기서 응답을 처리합니다. 예를 들어, 응답이 성공적으로 수행되면 사용자를 로그인 페이지로 리다이렉트할 수 있습니다.
-        if (response.success) {
+        if (response.token) {
           alert('회원가입이 성공적으로 완료되었습니다!');
+          // 회원가입 성공 시 토큰 저장 등의 작업 수행 후 로그인 페이지로 이동
           navigate('/login');
+        } else if (response.message === `${id} already exists`) {
+          alert('이미 존재하는 아이디입니다.');
+        } else if (response.message === 'Passwords do not match') {
+          alert('비밀번호가 일치하지 않습니다.');
         } else {
-          // 실패한 경우 에러 메시지를 출력합니다.
-          alert(response.message);
+          // 기타 오류 처리
+          alert('서버에서 오류가 발생했습니다.');
         }
       } catch (error) {
         console.error('Error signing up:', error);
-        // API 호출이 실패한 경우 에러 메시지를 출력합니다.
         alert('회원가입 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
       }
+  
     })();
   }
 };
@@ -208,10 +221,10 @@ const SignupPage = () => {
           {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
           <Input
             placeholder='Please enter your id'
-            value={name}
+            value={id}
             onChange={handleInputChange(setId, 'id')}
           />
-          {errors.name && <ErrorMessage>{errors.id}</ErrorMessage>}
+          {errors.id && <ErrorMessage>{errors.id}</ErrorMessage>}
           <Input
             placeholder='Please enter your email'
             value={email}
