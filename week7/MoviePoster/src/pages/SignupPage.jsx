@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,  } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Input = styled.input`
   width: 300px;
@@ -36,8 +37,16 @@ const ErrorMessage = styled.p`
   font-size: 12px;
 `;
 
+const Text = styled.p`
+  font-weight: 800;
+  text-decoration: underline;
+  cursor:pointer;
+  margin-bottom: 70px;
+`;
+
 const SignupPage = () => {
   const [name, setName] = useState('');
+  const [id, setId] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
@@ -45,8 +54,14 @@ const SignupPage = () => {
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
 
+  const navigate = useNavigate();
+  
   const validateName = (name) => {
     return /^[가-힣A-Za-z\s]+$/.test(name);
+  };
+
+  const validateId = (id) => {
+    return /^[A-Za-z0-9]+$/.test(id);
   };
 
   const validateEmail = (email) => {
@@ -93,12 +108,22 @@ const SignupPage = () => {
     return '';
   };
 
+  const handleClick= ()=>{
+    navigate('/login')
+  }
+
   useEffect(() => {
     const newErrors = {};
     if (!name) {
       newErrors.name = 'Name is required';
     } else if (!validateName(name)) {
       newErrors.name = 'Name must be a string';
+    }
+
+    if (!id) {
+      newErrors.id = 'ID is required';
+    } else if (!validateId(id)) {
+      newErrors.id = 'ID must be alphanumeric';
     }
 
     if (!email) {
@@ -127,10 +152,11 @@ const SignupPage = () => {
 
     const isValid = Object.keys(newErrors).length === 0;
     setIsFormValid(isValid);
-  }, [name, email, age, password, confirmPassword]);
+  }, [name, id, email, age, password, confirmPassword]);
 
   const FormData = {
     name: name,
+    id: id,
     email: email,
     age: age,
     password: password, 
@@ -164,6 +190,12 @@ const SignupPage = () => {
           />
           {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
           <Input
+            placeholder='Please enter your id'
+            value={name}
+            onChange={handleInputChange(setId, 'id')}
+          />
+          {errors.name && <ErrorMessage>{errors.id}</ErrorMessage>}
+          <Input
             placeholder='Please enter your email'
             value={email}
             onChange={handleInputChange(setEmail, 'email')}
@@ -193,7 +225,7 @@ const SignupPage = () => {
         </form>
         <div>
           <p>Do you already have an ID?</p>
-          <p>Go to the login page</p>
+          <Text onClick={handleClick}>Go to the login page</Text>
         </div>
       </Container>
     </main>
