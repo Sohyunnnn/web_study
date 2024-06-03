@@ -86,7 +86,7 @@ const PopularPage = () => {
   };
 
     if (isLoading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner size={80}/>;
   }
 
   if (error) {
@@ -106,7 +106,7 @@ const PopularPage = () => {
             ))}
           </div>
           <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
-          {isFetching && <LoadingSpinner />}
+          {isFetching && <LoadingSpinner size={80}/>}
         </div>
     </main>
   );

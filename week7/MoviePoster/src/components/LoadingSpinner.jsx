@@ -1,19 +1,20 @@
 import { Oval } from 'react-loader-spinner';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({size}) => {
   return (
     <div>
-    <SpinnerContainer>
+   <SpinnerContainer size={size}>
       <Oval
-        height={80}
-        width={80}
-        color="#4fa94d"
+        height={size}
+        width={size}
+        color="#4285F4"
         wrapperStyle={{}}
         wrapperClass=""
         visible={true}
         ariaLabel='oval-loading'
-        secondaryColor="#4fa94d"
+        secondaryColor="#4285F4"
         strokeWidth={2}
         strokeWidthSecondary={2}
       />
@@ -28,5 +29,10 @@ const SpinnerContainer = styled.div`
   align-items: center;
   height: 100%;
 `;
+
+LoadingSpinner.propTypes = {
+  size: PropTypes.number.isRequired,
+};
+
 
 export default LoadingSpinner;

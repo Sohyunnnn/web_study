@@ -57,8 +57,8 @@ const NowPlayingPage = () => {
           </div>
         ))}
       </div>
-      {loading && <LoadingSpinner />}
-      {!loading&&isFetching && <LoadingSpinner style={{ width: '10px', height: '10px' }} />}
+      {loading && <LoadingSpinner size={80}/>}
+      {!loading&&isFetching && <LoadingSpinner size={50} />}
       </Container>
     </main>
   );

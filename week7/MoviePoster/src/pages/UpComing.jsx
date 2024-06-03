@@ -23,7 +23,7 @@ const UpComing = () => {
   return (
     <main style={{margin: '30px auto'}}>
       {loading ? (
-       <LoadingSpinner />
+       <LoadingSpinner size={80}/>
       ) : (
         <div className="moviesGrid">
           {movies.map(movie => (
