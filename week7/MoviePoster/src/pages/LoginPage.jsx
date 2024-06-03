@@ -72,7 +72,10 @@ const LoginPage = () => {
         const response = await postLogin(userData); // Call postLogin function
         // Handle the response according to your requirements
         console.log(response); // Log the response
-        alert('로그인 되었습니다.');
+        if(response.token){
+          localStorage.setItem('token',response.token)
+          alert('Login successful!');
+        }
         navigate('/')
       } catch (error) {
         console.error('Error logging in:', error);
