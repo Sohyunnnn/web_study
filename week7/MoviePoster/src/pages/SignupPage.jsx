@@ -2,6 +2,8 @@ import { useState, useEffect,  } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+import { postSignup } from '../api/postSignup';
+
 const Input = styled.input`
   width: 300px;
   height: 35px;
@@ -154,24 +156,39 @@ const SignupPage = () => {
     setIsFormValid(isValid);
   }, [name, id, email, age, password, confirmPassword]);
 
-  const FormData = {
-    name: name,
-    id: id,
-    email: email,
-    age: age,
-    password: password, 
-    confirmPassword: confirmPassword
-  }
+  // const FormData = {
+  //   name: name,
+  //   id: id,
+  //   email: email,
+  //   age: age,
+  //   password: password, 
+  //   confirmPassword: confirmPassword
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isFormValid) {
-      console.log('Form submitted');
-      console.log(FormData);
+      (async () => {
+      try {
+        const userData = { name, id, email, age, password, confirmPassword };
+        const response = await postSignup(userData);
+        // 여기서 응답을 처리합니다. 예를 들어, 응답이 성공적으로 수행되면 사용자를 로그인 페이지로 리다이렉트할 수 있습니다.
+        if (response.success) {
+          alert('회원가입이 성공적으로 완료되었습니다!');
+          navigate('/login');
+        } else {
+          // 실패한 경우 에러 메시지를 출력합니다.
+          alert(response.message);
+        }
+      } catch (error) {
+        console.error('Error signing up:', error);
+        // API 호출이 실패한 경우 에러 메시지를 출력합니다.
+        alert('회원가입 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
+      }
+    })();
+  }
+};
 
-      alert('회원가입이 성공적으로 완료되었습니다!');
-    }
-  };
 
   const handleInputChange = (setter, field) => (e) => {
     setter(e.target.value);
