@@ -1,42 +1,67 @@
 import Info from '../components/info';
-import { nowPlaytingMovies } from '../api/nowPlayingMovies';
-import { useEffect, useState } from 'react';
+import { nowPlayingMovies } from '../api/nowPlayingMovies';
+import { useEffect, useState, useCallback } from 'react';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { styled } from 'styled-components';
 
+const Container= styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+`;
 
 const NowPlayingPage = () => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const getNowPlayingMovies = useCallback(async () => {
+    if (isFetching) return;
+    setIsFetching(true);
+    try {
+      const data = await nowPlayingMovies(page);
+      setMovies((prevMovies) => [...prevMovies, ...data.results]);
+      setHasMore(page < data.total_pages);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsFetching(false);
+      setLoading(false);
+    }
+  }, [page, isFetching]);
 
   useEffect(() => {
-    const getNowPlayingMovies = async () => {
-      try {
-        const data = await nowPlaytingMovies();
-        setMovies(data.results);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
+    getNowPlayingMovies();
+  }, [page]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+      if (!hasMore || isFetching) return;
+      setPage((prevPage) => prevPage + 1);
     };
 
-    getNowPlayingMovies();
-  }, []);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasMore, isFetching]);
 
   return (
-    <main style={{margin: '30px auto'}}>
-      {loading ? (
-       <LoadingSpinner />
-      ) : (
-        <div className="moviesGrid">
-          {movies.map(movie => (
-            <div key={movie.id} className="movieItem">
-              <Info movie={movie} />
-            </div>
-          ))}
-        </div>
-      )}
+    <main style={{ margin: '30px auto' }}>
+      <Container>
+      <div className="moviesGrid">
+        {movies.map((movie) => (
+          <div key={movie.id} className="movieItem">
+            <Info movie={movie} />
+          </div>
+        ))}
+      </div>
+      {loading && <LoadingSpinner />}
+      {!loading&&isFetching && <LoadingSpinner style={{ width: '10px', height: '10px' }} />}
+      </Container>
     </main>
   );
-}
+};
 
-export default NowPlayingPage
+export default NowPlayingPage;
