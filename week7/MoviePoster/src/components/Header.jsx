@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom';
+import { useState,  useEffect} from 'react';
+import { NavLink, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
@@ -49,6 +50,24 @@ const Nav = styled.nav`
 `;
 
 const Header = () => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/'); 
+  };
+
+  
   return (
     <HeaderContainer>
       <Logo>
@@ -56,6 +75,15 @@ const Header = () => {
       </Logo>
       <Nav>
         <ul>
+        <li>
+        {isLoggedIn ? (
+              <a onClick={handleLogout} className="active">Logout</a>
+            ) : (
+              <NavLink to="/login" className={({ isActive }) => (isActive ? 'active' : '')}>
+                Login
+              </NavLink>
+            )}
+          </li>
           <li>
             <NavLink to="/signup" className={({ isActive }) => (isActive ? 'active' : '')}>
               Signup
