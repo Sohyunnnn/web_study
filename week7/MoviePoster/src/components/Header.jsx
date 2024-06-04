@@ -1,7 +1,5 @@
-
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { useState } from 'react';
 
 const HeaderContainer = styled.header`
   background-color: #333;
@@ -42,82 +40,50 @@ const Nav = styled.nav`
   ul li a {
     color: white;
     text-decoration: none;
+    cursor: pointer;
   }
 
-  
-`;
-
-const NavLink = styled(Link)`
-  &.clicked {
-    color: #F7D600;
-        ;
+  ul li a.active {
+    color: #F7D600; /* 현재 경로에 있을 때 색상 변경 */
   }
 `;
-
-
 
 const Header = () => {
-
-  const [popularClicked, setPopularClicked] = useState(false);
-  const [nowPlayingClicked, setNowPlayingClicked] = useState(false);
-  const [topRatedClicked, setTopRatedClicked] = useState(false);
-  const [upcomingClicked, setUpcomingClicked] = useState(false);
-  
-
-
-
-  const handlePopularClick = () => {
-    setPopularClicked(true);
-    setNowPlayingClicked(false);
-    setTopRatedClicked(false);
-    setUpcomingClicked(false);
-  };
-  
-  const handleNowPlayingClick = () => {
-    setPopularClicked(false);
-    setNowPlayingClicked(true);
-    setTopRatedClicked(false);
-    setUpcomingClicked(false);
-  };
-  
-  const handleTopRatedClick = () => {
-    setPopularClicked(false);
-    setNowPlayingClicked(false);
-    setTopRatedClicked(true);
-    setUpcomingClicked(false);
-  };
-  
-  const handleUpcomingClick = () => {
-    setPopularClicked(false);
-    setNowPlayingClicked(false);
-    setTopRatedClicked(false);
-    setUpcomingClicked(true);
-  };
-  
-
-
   return (
-    <>
-    <header>
     <HeaderContainer>
       <Logo>
-        <Link to="/">Movie App</Link>
+        <NavLink to="/">Movie App</NavLink>
       </Logo>
       <Nav>
         <ul>
-            <li><Link to="/signup">
-             Signup
-            </Link></li>
-            <li><NavLink to="/popular" onClick={handlePopularClick} className={popularClicked ? 'clicked' : ''}>Popular</NavLink></li>
-<li><NavLink to="/now-playing" onClick={handleNowPlayingClick} className={nowPlayingClicked ? 'clicked' : ''}>Now Playing</NavLink></li>
-<li><NavLink to="/top-rated" onClick={handleTopRatedClick} className={topRatedClicked ? 'clicked' : ''}>Top Rated</NavLink></li>
-<li><NavLink to="/upcoming" onClick={handleUpcomingClick} className={upcomingClicked ? 'clicked' : ''}>Upcoming</NavLink></li>
-
+          <li>
+            <NavLink to="/signup" className={({ isActive }) => (isActive ? 'active' : '')}>
+              Signup
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/popular" className={({ isActive }) => (isActive ? 'active' : '')}>
+              Popular
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/now-playing" className={({ isActive }) => (isActive ? 'active' : '')}>
+              Now Playing
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/top-rated" className={({ isActive }) => (isActive ? 'active' : '')}>
+              Top Rated
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/upcoming" className={({ isActive }) => (isActive ? 'active' : '')}>
+              Upcoming
+            </NavLink>
+          </li>
         </ul>
       </Nav>
     </HeaderContainer>
-    </header>
-    </>
   );
 };
 
