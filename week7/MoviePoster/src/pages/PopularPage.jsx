@@ -86,7 +86,7 @@ const PopularPage = () => {
   };
 
     if (isLoading) {
-    return <LoadingSpinner size={80}/>;
+    return <main><LoadingSpinner size={80}/></main>;
   }
 
   if (error) {
