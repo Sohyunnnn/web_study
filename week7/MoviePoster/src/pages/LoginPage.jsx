@@ -76,7 +76,8 @@ const LoginPage = () => {
           localStorage.setItem('token',response.token)
           alert('Login successful!');
         }
-        navigate('/')
+        navigate('/');
+        window.location.reload();
       } catch (error) {
         console.error('Error logging in:', error);
         // Handle error
