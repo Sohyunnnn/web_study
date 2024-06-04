@@ -65,6 +65,7 @@ const Header = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
     navigate('/'); 
+    window.location.reload();
   };
 
   
@@ -84,11 +85,13 @@ const Header = () => {
               </NavLink>
             )}
           </li>
-          <li>
-            <NavLink to="/signup" className={({ isActive }) => (isActive ? 'active' : '')}>
-              Signup
-            </NavLink>
-          </li>
+          {!isLoggedIn && (
+            <li>
+              <NavLink to="/signup" className={({ isActive }) => (isActive ? 'active' : '')}>
+                Signup
+              </NavLink>
+            </li>
+          )}
           <li>
             <NavLink to="/popular" className={({ isActive }) => (isActive ? 'active' : '')}>
               Popular
