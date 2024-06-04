@@ -78,7 +78,7 @@ const Header = () => {
         <ul>
         <li>
         {isLoggedIn ? (
-              <a onClick={handleLogout} className="active">Logout</a>
+              <a onClick={handleLogout}>Logout</a>
             ) : (
               <NavLink to="/login" className={({ isActive }) => (isActive ? 'active' : '')}>
                 Login
