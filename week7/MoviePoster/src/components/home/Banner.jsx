@@ -21,29 +21,35 @@ const BannerContainer = styled.div`
 const Banner = () => {
   const [userName, setUserName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log(token);
-    getInfo(token)
-      .then(data => {
-        setUserName(data.name); 
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
-      });
+    if (token) {
+      setIsLoggedIn(true);
+      getInfo(token)
+        .then(data => {
+          setUserName(data.name);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoggedIn(false);
+      setIsLoading(false);
+    }
   }, []);
   
 
 
 
   return (
-      <BannerContainer>
-         {isLoading ? 'Loading...' : `Welcome to ${userName}`}
-      </BannerContainer>
+    <BannerContainer>
+      {isLoggedIn ? (isLoading ? 'Loading...' : `Welcome to ${userName}`) : 'Welcome to Movie App'}
+    </BannerContainer>
   )
 }
 
