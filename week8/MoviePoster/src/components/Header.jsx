@@ -30,10 +30,11 @@ const Nav = styled.nav`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100vh;
     position: absolute; /* 추가: 절대 위치 지정 */
     top: 100%; /* 추가: 헤더 아래에 위치 */
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* 추가: 투명도 조정 */
+    background-color: rgba(0, 0, 0, 0.9); /* 추가: 투명도 조정 */
     display: ${props => (props.open ? 'flex' : 'none')};
     padding: 10px; /* 추가: 내부 패딩 */
     box-sizing: border-box;
@@ -87,16 +88,16 @@ const HamburgerImg = styled.img`
   height: 24px;
 `;
 
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 99; /* 헤더보다 아래에 위치 */
-  display: ${props => (props.open ? 'block' : 'none')};
-`;
+// const Overlay = styled.div`
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   z-index: 99; /* 헤더보다 아래에 위치 */
+//   display: ${props => (props.open ? 'block' : 'none')};
+// `;
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -173,7 +174,7 @@ const Header = () => {
       <Hamburger onClick={toggleMenu}>
         <HamburgerImg src={HamburgerIcon} alt="Menu" />
       </Hamburger>
-      <Overlay open={menuOpen} onClick={toggleMenu} />
+      {/* <Overlay open={menuOpen} onClick={toggleMenu} /> */}
     </HeaderContainer>
   );
 };
