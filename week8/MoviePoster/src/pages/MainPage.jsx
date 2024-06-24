@@ -11,6 +11,8 @@ const MainContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
+
+
 `;
 
 const InputContainer = styled.div`
@@ -19,6 +21,9 @@ const InputContainer = styled.div`
   gap: 20px;
   margin-top: 30px;
   margin-bottom: 100px;
+  @media (max-width: 390px) {
+      width: 200px;
+    }
 `;
 
 const InputBox = styled.input`

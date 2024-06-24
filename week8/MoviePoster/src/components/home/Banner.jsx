@@ -15,6 +15,10 @@ const BannerContainer = styled.div`
   display: flex;
   margin-bottom: 30px;
   font-weight: bold;
+  @media (max-width: 390px) {
+      font-size: 30px;
+    }
+  
   
 `;
 
