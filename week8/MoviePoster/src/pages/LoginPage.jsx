@@ -7,6 +7,9 @@ const Input = styled.input`
   width: 300px;
   height: 35px;
   margin-bottom: 10px;
+  @media (max-width: 390px) {
+    width: 250px;
+  }
 `;
 
 const Container = styled.div`
@@ -38,6 +41,9 @@ const Button = styled.button`
   background-color: ${(props) => (props.disabled ? '#ccc' : '#007BFF')};
   color: ${(props) => (props.disabled ? '#666' : '#fff')};
   border: none;
+  @media (max-width: 390px) {
+    width: 250px;
+  }
 `;
 
 const LoginPage = () => {
