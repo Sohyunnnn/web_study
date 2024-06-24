@@ -31,14 +31,15 @@ const Nav = styled.nav`
     align-items: center;
     width: 100%;
     height: 100vh;
-    position: absolute; /* 추가: 절대 위치 지정 */
+    position: absolute; 
     top: 100%; /* 추가: 헤더 아래에 위치 */
-    left: 0;
+    left: ${props => (props.open ? '0' : '-100%')};
     background-color: rgba(0, 0, 0, 0.9); /* 추가: 투명도 조정 */
     display: ${props => (props.open ? 'flex' : 'none')};
     padding: 10px; /* 추가: 내부 패딩 */
     box-sizing: border-box;
     z-index: 100; /* 추가: 다른 요소들보다 위에 배치 */
+    transition: left 0.3s ease; /* 추가: 부드러운 애니메이션 효과 */
   }
 
   ul {
@@ -88,17 +89,6 @@ const HamburgerImg = styled.img`
   height: 24px;
 `;
 
-// const Overlay = styled.div`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: rgba(0, 0, 0, 0.5);
-//   z-index: 99; /* 헤더보다 아래에 위치 */
-//   display: ${props => (props.open ? 'block' : 'none')};
-// `;
-
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -110,6 +100,23 @@ const Header = () => {
       setIsLoggedIn(true);
     }
   }, []);
+
+  // 스크롤 이벤트 리스너 추가
+  useEffect(() => {
+    const handleScroll = () => {
+      // 사이드바가 열려있는 경우 닫기
+      if (menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 정리
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [menuOpen]); // menuOpen 상태가 변경될 때마다 useEffect가 재실행됩니다.
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -174,7 +181,6 @@ const Header = () => {
       <Hamburger onClick={toggleMenu}>
         <HamburgerImg src={HamburgerIcon} alt="Menu" />
       </Hamburger>
-      {/* <Overlay open={menuOpen} onClick={toggleMenu} /> */}
     </HeaderContainer>
   );
 };
