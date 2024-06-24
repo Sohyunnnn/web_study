@@ -28,8 +28,17 @@ const Content = styled.div`
   z-index: 1;
   display: flex;
   flex-direction: row;
-  padding: 100px 200px;
+  padding: 100px;
   gap: 100px;
+  @media (max-width: 800px) {
+    flex-direction: column;
+    display: flex;
+  }
+    @media (max-width: 400px) {
+    flex-direction: column;
+    display: flex;
+    padding: 30px;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -41,9 +50,12 @@ const Paragraph = styled.p`
   margin-bottom: 10px;
 `;
 
-const MovieImg = styled.img`
-  max-height: 400px;
-`;
+  const MovieImg = styled.img`
+    max-height: 400px;
+    max-width: 300px;
+    display: block; /* 이미지를 블록 요소로 설정하여 가로 중앙 정렬을 적용합니다. */
+    margin: 0 auto; /* 좌우 여백을 auto로 설정하여 수평 가운데 정렬을 합니다. */
+  `;
 
 const Title = styled.p`
   font-size: 35px;
