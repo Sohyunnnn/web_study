@@ -1,22 +1,23 @@
 // src/App.jsx
-import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { addTodo, toggleTodo, removeTodo } from './redux/todoSlice'
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo, toggleTodo, removeTodo } from './redux/todoSlice';
+import './index.css';
 
 function App() {
-  const [text, setText] = useState('')
-  const todos = useSelector(state => state.todos)
-  const dispatch = useDispatch()
+  const [text, setText] = useState('');
+  const todos = useSelector(state => state.todos);
+  const dispatch = useDispatch();
 
   const handleAddTodo = () => {
     if (text.trim()) {
-      dispatch(addTodo(text))
-      setText('')
+      dispatch(addTodo(text));
+      setText('');
     }
-  }
+  };
 
   return (
-    <div>
+    <div className="container">
       <h1>Todo List</h1>
       <input
         type="text"
@@ -38,7 +39,7 @@ function App() {
         ))}
       </ul>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
