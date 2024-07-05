@@ -1,11 +1,8 @@
-import {configureStore} from '@reduxjs/toolkit'
-import todoSlice from './todoSlice'
+import { configureStore } from '@reduxjs/toolkit'
+import todosReducer from './todoSlice'
 
-export default configureStore({
-    reducer : {
-        todo : todoSlice
-    }
+export const store = configureStore({
+  reducer: {
+    todos: todosReducer,
+  },
 })
-
-// configureStore 로 store를 생성.
-// 객체 형태의 인자에는 reducer가 꼭 있어야 함.
